@@ -1,5 +1,7 @@
 # TodoWebApp2
 
+![画面](https://github.com/yasigawa/TodoWebApp2/blob/master/app.gif)
+
 ## Overview
 SpringBootの勉強のために作成したTodoアプリです。
 
