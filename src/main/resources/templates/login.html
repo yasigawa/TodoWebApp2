@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <title>ログイン</title>
+<script type="text/javascript">
+	;
+</script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4"></div>
+			<div class="col-4">
+		    <h2 class="heading text-center">ログイン</h2>
+		    <form method="post" th:action="@{/login}">
+        		<div th:if="${param.error}">
+				<div class="alert alert-danger" role="alert">
+            		ログインに失敗しました
+            		<div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}">
+                		<span th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}"></span>
+            		</div>
+		        </div>
+    		    </div>
+        		<div th:if="${param.logout}">
+				<div class="alert alert-primary" role="alert">
+	        	    ログアウトしました
+    		    </div>
+	    		</div>
+		        <div class="row text-left">
+					<div class="col text-left">
+		        		<h4><label class=" text-left" for="username">ID</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+		        		<input type="text" id="username" name="username" 
+		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="guest">
+	    			</div>
+	    		</div>
+		        <div class="row h-50">
+					<div class="col">
+				        <h4><label for="password">パスワード</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+		        		<input type="password" id="password" name="password" class="form-control" aria-label="Sizing example input" 
+		        			aria-describedby="inputGroup-sizing-lg" value="guest">
+	    			</div>
+	    		</div>
+		        <div class="row mt-3">
+    		        <div class="col">
+				        <button class="btn btn-primary border border-dark rounded btn-lg" type="submit">ログイン</button>
+    		        </div>
+	    		</div>
+		        <div class="row mt-5">
+    		        <div class="col">
+    					<input type="button" class="btn btn-primary border border-dark rounded btn-lg" onclick="location.href='/signup'" value="ユーザー登録"></body>
+	    			</div>
+	    		</div>
+    		</form>
+    		</div>
+        </div>
+    </div>
+
+</body>
+</html>

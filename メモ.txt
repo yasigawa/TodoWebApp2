@@ -1,0 +1,166 @@
+INSERT INTO user(name, password, authority)
+VALUES('yama1', '$2a$10$KBVjUqJO8wdYklH9dV4RFOOMzd0rJhjEJtwJDeEep3GTAefMbCynO', 'ROLE_USER');
+INSERT INTO user(name, password, authority)
+VALUES('yama2', '$2a$10$KBVjUqJO8wdYklH9dV4RFOOMzd0rJhjEJtwJDeEep3GTAefMbCynO', 'ROLE_USER');
+
+
+ALTER TABLE テーブル名 ADD 新規カラム名 型情報 オプション;
+ALTER TABLE テーブル名 ADD 新規カラム名 型情報 AFTER 既存カラム名;
+
+ALTER TABLE user ADD userid varchar(100) AFTER id;
+
+show columns from user;
+
+drop index name on user;
+
+create index id_index on user(userid);
+
+ALTER TABLE テーブル名 MODIFY COLUMN カラム名 データ型 NOT NULL;
+ALTER TABLE user MODIFY COLUMN userid varchar(100) NOT NULL;
+
+
+SHOW CREATE TABLE テーブル名
+DATETIME
+CREATE TABLE db_name.tbl_name
+  (col_name data_type NOT NULL, ..., PRIMARY KEY(col_name, ...))
+
+	private String userid;
+	private String title;
+	private String details;
+	private String datetime;
+
+CREATE TABLE `mydb2`.`todo` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(100) NOT NULL,
+  `details` VARCHAR(255) NULL,
+  `datetime` DATETIME NOT NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE todo ADD userid varchar(100) AFTER id;
+
+
+test1112
+INSERT INTO todo(userid, title, details, datetime)VALUES('test1112', '大掃除', '大掃除をする。', '20220101080910');
+
+
+java.time.LocalDateTime cannot be cast to class java.util.Date
+
+
+ALTER TABLE todo MODIFY COLUMN  userid varchar(100) NOT NULL;
+ALTER TABLE todo MODIFY COLUMN  datetime datetime NULL;
+
+ALTER TABLE user ADD userid varchar(100) AFTER id;
+
+DATE
+日付
+'1000-01-01' から '9999-12-31'
+フォーマット ： 'YYYY-MM-DD'
+
+TIME[(fsp)]
+時間
+'-838:59:59.000000' から '838:59:59.000000'
+フォーマット ： 'HH:MM:SS[.fraction]' 
+
+ALTER TABLE todo ADD todotime TIME AFTER datetime;
+ALTER TABLE todo ADD tododate DATE AFTER datetime;
+ALTER TABLE todo ADD done DATE AFTER todotime;
+ALTER TABLE todo MODIFY COLUMN done varchar(1);
+
+ALTER TABLE todo DROP datetime;
+
+        <label for="tododate">日付</label>
+        <input type="text" id="tododate" name="tododate" th:value="${tododetail.datetime}"><br>
+        <div class="errorStr" th:if="${#fields.hasErrors('datetime')}" th:errors="${todoDetailForm.datetime}"></div>
+
+        <label for="todotime">時刻</label>
+        <input type="time" id="todotime" name="todotime" class='timepicker' th:value="${tododetail.datetime}"><br>
+        <div class="errorStr" th:if="${#fields.hasErrors('datetime')}" th:errors="${todoDetailForm.datetime}"></div>
+
+tododate
+todotime
+
+getTododate
+getTodotime
+
+
+        DateTimeFormatter frmtd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+ 
+		for (Map<String, Object> map : dlist) {
+		    String id = String.valueOf(map.get("id"));
+		    String title = (String)map.get("title");
+		    String details = (String)map.get("details");
+		    
+//		    LocalDateTime localDateTime = (LocalDateTime)map.get("datetime");
+//		    String datetime = "";
+//		    if (localDateTime != null) {
+//		    	datetime = localDateTime.format(formatter);
+//		    }
+
+		    LocalDateTime localdate = (LocalDateTime)map.get("tododate");
+		    String tododate = "";
+		    if (localdate != null) {
+		    	tododate = localdate.format(frmtd);
+		    }
+		    
+		    Time localtime = (Time)map.get("todotime");
+		    String todotime = "";
+		    if (localtime != null) {
+		    	todotime = localtime.toString();
+		    }
+		    
+		    list.add(new TodoDetailsImpl(id, userid, title, details, tododate, todotime));
+
+
+
+C:\Users\ysiga\eclipse-workspace\Mysqldemo4>java -jar build/libs/Mysqldemo4-0.0.1-SNAPSHOT-plain.jar
+エラーー: メイン・・クラスMysqldemo4Applicationをを検出およびロードできませんでした
+原原因因: java.lang.ClassNotFoundException: Mysqldemo4Application
+
+docker run -d -P --name static-site prakhar1989/static-site
+docker run -p 8888:80               prakhar1989/static-site
+
+docker build -t hubhubnaha /catnip .
+docker build -t /catnip .
+
+docker run -p 8888:5000 hubhubnaha /catnip
+
+
+Usage:  docker build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+Options:
+      --add-host list           Add a custom host-to-IP mapping (host:ip)
+      --build-arg list          Set build-time variables
+      --cache-from strings      Images to consider as cache sources
+      --disable-content-trust   Skip image verification (default true)
+  -f, --file string             Name of the Dockerfile (Default is
+                                'PATH/Dockerfile')
+      --iidfile string          Write the image ID to the file
+      --isolation string        Container isolation technology
+      --label list              Set metadata for an image
+      --network string          Set the networking mode for the RUN
+                                instructions during build (default "default")
+      --no-cache                Do not use cache when building the image
+  -o, --output stringArray      Output destination (format:
+                                type=local,dest=path)
+      --platform string         Set platform if server is multi-platform
+                                capable
+      --progress string         Set type of progress output (auto, plain,
+                                tty). Use plain to show container output
+                                (default "auto")
+      --pull                    Always attempt to pull a newer version of
+                                the image
+  -q, --quiet                   Suppress the build output and print image
+                                ID on success
+      --secret stringArray      Secret file to expose to the build (only
+                                if BuildKit enabled):
+                                id=mysecret,src=/local/secret
+      --ssh stringArray         SSH agent socket or keys to expose to the
+                                build (only if BuildKit enabled) (format:
+                                default|<id>[=<socket>|<key>[,<key>]])
+  -t, --tag list                Name and optionally a tag in the
+                                'name:tag' format
+      --target string           Set the target build stage to build.
+
+

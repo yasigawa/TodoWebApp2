@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>ユーザー登録</title>
+    <style type="text/css">
+         .errorStr {color:red;}
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+    <div class="row">
+	    <div class="col-4"></div>
+		<div class="col-4">
+	    <h2 class="heading text-center">ユーザー登録</h2>
+    		<form method="post" th:action="@{/signup}" th:object="${signupForm}">
+        		<div th:if="${signupError}">
+            		<div class="alert alert-danger" role="alert" th:text="${signupError}"></div>
+        		</div>
+		        <div class="row text-left">
+					<div class="col text-left">
+		        		<h4><label class=" text-left" for="userid">ID</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+		        		<input type="text" id="userid" name="userid" 
+		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${signupForm.userid}">
+	    			</div>
+	    		</div>
+        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('userid')}" th:errors="${signupForm.userid}"></div>
+
+		        <div class="row text-left">
+					<div class="col text-left">
+		        		<h4><label class=" text-left" for="password">パスワード</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+		        		<input type="password" id="password" name="password" 
+		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${signupForm.password}">
+	    			</div>
+	    		</div>
+        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="${signupForm.password}"></div>
+
+		        <div class="row text-left">
+					<div class="col text-left">
+		        		<h4><label class=" text-left" for="username">ユーザー名</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+		        		<input type="text" id="username" name="username" 
+		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${signupForm.username}">
+	    			</div>
+	    		</div>
+        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="${signupForm.username}"></div>
+
+		        <div class="row mt-3">
+    		        <div class="col">
+				        <button class="btn btn-primary border border-dark rounded btn-lg" type="submit">登録</button>
+    		        </div>
+	    		</div>
+	    		<div class="row mt-5">
+    		        <div class="col">
+    					<input type="button" class="btn btn-primary border border-dark rounded btn-lg" onclick="location.href='/'" value="戻る"></body>
+	    			</div>
+	    		</div>
+    		</form>
+		</div>
+	</div>
+	</div>
+</html>

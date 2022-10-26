@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>TODO追加/修正</title>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+
+<script>
+	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional["ja"]);
+		$("#tododate").datepicker();
+	});
+	
+</script>
+</head>
+<body>
+    <div class="container-fluid">
+    <div class="row">
+    	<div th:if="${nextaction == 'addTodo'}">
+    		<h2 class="heading text-center">TODO追加</h2>
+    	</div>
+    	<div th:if="${nextaction == 'modTodo'}">
+    		<h2 class="heading text-center">TODO修正</h2>
+    	</div>
+	    <div class="col-4"></div>
+		<div class="col-4">
+    
+	    	<form method="post" th:action="@{${nextaction}}" th:object="${todoDetailForm}">
+
+	        	<div th:if="${TodoDetailError}">
+            		<div class="alert alert-danger" role="alert" th:text="${TodoDetailError}"></div>
+        		</div>
+
+		        <div class="row">
+					<div class="col text-left">
+		        		<h4><label class=" text-left" for="title">タイトル</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+		        		<input type="text" id="title" name="title" 
+		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${tododetail.title}">
+	    			</div>
+	    		</div>
+        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('title')}" th:errors="${todoDetailForm.title}"></div>
+
+		        <div class="row">
+					<div class="col text-left">
+			        	<h4><label class=" text-left" for="detail">メモ</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+			        	<input type="text" id="details" name="details"
+			        		class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${tododetail.details}">
+	    			</div>
+	    		</div>
+        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('details')}" th:errors="${todoDetailForm.details}"></div>
+
+		        <div class="row">
+					<div class="col text-left">
+		        		<h4><label class=" text-left" for="tododate">日付</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+			        	<input type="text" id="tododate" name="tododate" 
+			        		class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${tododetail.tododate}">
+	    			</div>
+	    		</div>
+	        	<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('tododate')}" th:errors="${todoDetailForm.tododate}"></div>
+
+		        <div class="row text-left">
+					<div class="col text-left">
+		        		<h4><label class=" text-left" for="todotime">時刻</label></h4>
+	    			</div>
+	    		</div>
+		        <div class="row">
+					<div class="col">
+			        	<input type="time" id="todotime" name="todotime"
+			        		class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${tododetail.todotime}"><br>
+	    			</div>
+	    		</div>
+	        	<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('todotime')}" th:errors="${todoDetailForm.todotime}"></div>
+
+				<input type="hidden" name="id" th:value="${tododetail.id}"/>
+
+		        <div class="row mt-3">
+    		        <div class="col">
+			        	<button class="btn btn-primary border border-dark rounded btn-lg" type="submit">登録</button>
+    		        </div>
+    		        <div class="col">
+						<input class="btn btn-primary border border-dark rounded btn-lg" type="button" onclick="location.href='/'" value="戻る"></body>
+    		        </div>
+	    		</div>
+    	</form>
+		</div>
+	</div>
+	</div>
+</body>
+</html>
