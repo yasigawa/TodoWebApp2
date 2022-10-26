@@ -9,5 +9,5 @@ public interface TodDetails extends Serializable {
     String getDetails();  // TODOの詳細を返す
     String getTododate();  // TODOの日時を返す
     String getTodotime();  // TODOの日時を返す
-    String getDone();  // 済みを返す
+    String getDone();  // ステータスを返す
 }

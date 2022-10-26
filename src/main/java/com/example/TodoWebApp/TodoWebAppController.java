@@ -35,9 +35,7 @@ public class TodoWebAppController {
         String userid = getUserid();
         
         // タスク一覧を取得する
-        // task.memo
         List<TodDetails> todolist = todoDetailsServiceImpl.select(userid);
-//        model.addAttribute("userid", userDetails.getUserid());
         model.addAttribute("todolist", todolist);
         System.out.println("index:" + model.toString());  // 
         return "index";
@@ -210,7 +208,6 @@ public class TodoWebAppController {
         
         // タスク一覧を取得する
         List<TodDetails> todolist = todoDetailsServiceImpl.select(userid);
-//        model.addAttribute("userid", todoDetailForm.getUserid());
         model.addAttribute("todolist", todolist);
         model.addAttribute("todoAddModOkMessage", "TODOを修正しました。");
         

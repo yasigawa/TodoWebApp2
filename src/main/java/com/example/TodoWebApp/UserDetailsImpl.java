@@ -19,15 +19,6 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-//	@Override
-//    public String getUserid() {
-//		return userid;
-//	}
-//
-//	public void setUserid(String userid) {
-//		this.userid = userid;
-//	}
-//
 	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -60,5 +51,4 @@ public class UserDetailsImpl implements UserDetails {
 	public String getUserid() {
 		return userid;
 	}
-
 }
