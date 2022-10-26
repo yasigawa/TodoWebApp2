@@ -11,42 +11,45 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * セキュリティコンフィグクラス
+ * @author ysiga
+ *
+ */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+
+	/** ユーザー*/
+	@Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+    	// パスワードの暗号化用に、bcrypt（ビー・クリプト）を使用します
         return new BCryptPasswordEncoder();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+    	// 主に全体に対するセキュリティ設定を行う
         web.ignoring().antMatchers("/css/**");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//        .withUser("yama3")
-//        .password(passwordEncoder().encode("123456"))
-////        .password("$2a$10$E55vg96856cWy4oyAUpQ6OH2mxO6eTt43A5lPwa3MszPbDpAOPiLG")
-//        .roles("USER");
-//
+    	// 認証方法の実装の設定を行う
         auth.userDetailsService(userDetailsService);
-        
-        System.out.println(new BCryptPasswordEncoder().encode("123456"));
-
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	// 認証リクエストの設定
         http.authorizeRequests()
         	.antMatchers("/signup").permitAll()
             .anyRequest()
             .authenticated();
+        // フォームベース認証の設定
         http.formLogin()
             .loginPage("/login")
             .defaultSuccessUrl("/")
@@ -54,5 +57,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
         	.permitAll();
     }
-
 }
