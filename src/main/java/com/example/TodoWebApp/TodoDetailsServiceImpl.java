@@ -28,16 +28,9 @@ public class TodoDetailsServiceImpl {
 		    String details = (String)map.get("details");
 		    String done = (String)map.get("done");
 		    
-//		    LocalDateTime localDateTime = (LocalDateTime)map.get("datetime");
-//		    String datetime = "";
-//		    if (localDateTime != null) {
-//		    	datetime = localDateTime.format(formatter);
-//		    }
-
 		    Date date = (Date)map.get("tododate");
 		    String tododate = "";
 		    if (date != null) {
-//		    	tododate = localdate.format(frmtd);
 		    	tododate = date.toString();
 		    }
 		    
@@ -50,6 +43,7 @@ public class TodoDetailsServiceImpl {
 		    	}
 		    }
 		    
+		    // TODOリストを取得
 		    list.add(new TodoDetailsImpl(id, userid, title, details, tododate, todotime, done));
 		}
 		return list;
@@ -71,19 +65,14 @@ public class TodoDetailsServiceImpl {
     }
 
 	public TodDetails selectById(String id) {
-        String sql = "SELECT * FROM todo WHERE id = ?";
+	    // idからTODO情報を取得
+		String sql = "SELECT * FROM todo WHERE id = ?";
         Map<String, Object> map = jdbcTemplate.queryForMap(sql, id);
 
         String userid = (String)map.get("userid");
 	    String title = (String)map.get("title");
 	    String details = (String)map.get("details");
 	    String done = (String)map.get("done");
-
-//	    String datetime = "";
-//	    LocalDateTime localDateTime = (LocalDateTime)map.get("datetime");
-//	    if (localDateTime != null) {
-//	    	datetime = localDateTime.format(formatter);
-//	    }
 
 	    Date date = (Date)map.get("tododate");
 	    String tododate = "";
@@ -99,10 +88,28 @@ public class TodoDetailsServiceImpl {
 	    		todotime = todotime.substring(0, 5);
 	    	}
 	    }
-	    
+
+	    // テーブルの情報からTODO情報を作成
 	    TodDetails tododetail = new TodoDetailsImpl(id, userid, title, details, tododate, todotime, done);
 
         return tododetail;
+	}
+
+	public void insert(String userid, String title, String details, String tododate, String todotime) {
+        String sql = "INSERT INTO todo (userid, title, details, tododate, todotime) "
+        		+ "VALUES (?, ?, ?, ?, ?)";
+
+        Date date = null;
+        try {
+            date = Date.valueOf(tododate.replace("/", "-"));
+            
+        } catch (Exception e) {}
+	    Time time = null;
+        try {
+        	time = Time.valueOf(todotime + ":00");
+        } catch (Exception e) {}
+
+        jdbcTemplate.update(sql, userid, title, details, date, time);
 	}
 
 	public void update(String id, String userid, String title, String details, String tododate, String todotime) {
@@ -126,33 +133,12 @@ public class TodoDetailsServiceImpl {
         jdbcTemplate.update(sql, id, userid);
 	}
 
-	public void insert(String userid, String title, String details, String tododate, String todotime) {
-        String sql = "INSERT INTO todo (userid, title, details, tododate, todotime) "
-        		+ "VALUES (?, ?, ?, ?, ?)";
-
-        Date date = null;
-        try {
-//            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
-//            date = sdFormat.parse(tododate);
-            date = Date.valueOf(tododate.replace("/", "-"));
-            
-        } catch (Exception e) {}
-	    Time time = null;
-        try {
-        	time = Time.valueOf(todotime + ":00");
-        } catch (Exception e) {}
-
-        jdbcTemplate.update(sql, userid, title, details, date, time);
-	}
-
 	public void updateDone(String id, String userid, String done) {
+		// ステータス変更
         String sql = "UPDATE todo SET done = ? "
         		+ "WHERE id = ? and userid = ? ";
         
         jdbcTemplate.update(sql, done, id, userid);
 	}
-
-
-	
 }
 
