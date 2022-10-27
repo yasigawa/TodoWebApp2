@@ -41,21 +41,6 @@ public class TodoWebAppController {
         return "index";
     }
     
-    private String getUserid() {
-        // SecurityContextHolderからAuthenticationオブジェクトを取得
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-
-        // Authenticationオブジェクトからユーザー情報を取得
-        System.out.println(authentication.getName());  // ユーザー名を表示
-        System.out.println(authentication.getAuthorities());  // 権限情報を表示
-
-        UserDetailsImpl u = (UserDetailsImpl)authentication.getPrincipal();
-        System.out.println("authentication userid:" + u.getUserid());  // 
-        
-		return u.getUserid();
-	}
-
 	@GetMapping("/login")
     public String login () {
         return "login";
@@ -255,4 +240,18 @@ public class TodoWebAppController {
         return "index";
     }
 
+    private String getUserid() {
+        // SecurityContextHolderからAuthenticationオブジェクトを取得
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+
+        // Authenticationオブジェクトからユーザー情報を取得
+        System.out.println(authentication.getName());  // ユーザー名を表示
+        System.out.println(authentication.getAuthorities());  // 権限情報を表示
+
+        UserDetailsImpl u = (UserDetailsImpl)authentication.getPrincipal();
+        System.out.println("authentication userid:" + u.getUserid());  // 
+        
+		return u.getUserid();
+	}
 }
