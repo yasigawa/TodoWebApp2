@@ -72,8 +72,8 @@ public class TodoWebAppControllerTesst {
 
 		// バリデーションエラーの場合
 		SignupForm form = new SignupForm();
-	    form.setUserid("");
-	    form.setUsername("guesttest");
+	    form.setUsername("");
+	    form.setUsernamejp("guesttest");
 	    form.setPassword("111111");
 
 	    MockHttpServletRequestBuilder request = (post("/signup")).flashAttr("signupForm", form);
@@ -89,8 +89,8 @@ public class TodoWebAppControllerTesst {
 
 		// 登録されていますエラー
 		SignupForm form = new SignupForm();
-	    form.setUserid("guest");
-	    form.setUsername("guesttest");
+	    form.setUsername("guest");
+	    form.setUsernamejp("guesttest");
 	    form.setPassword("111111");
 
 	    MockHttpServletRequestBuilder request = (post("/signup")).flashAttr("signupForm", form);
@@ -115,7 +115,7 @@ public class TodoWebAppControllerTesst {
 	@WithUserDetails("guest")
     public void postAddTodoTest() throws Exception {
 		TodoDetailForm form = new TodoDetailForm();
-	    form.setUserid("guest");
+	    form.setUsername("guest");
 	    form.setTitle("111111");
 
 	    mockMvc.perform(post("/addTodo").flashAttr("todoDetailForm", form))
@@ -130,7 +130,7 @@ public class TodoWebAppControllerTesst {
 		
 		// バリデーションエラー
 		TodoDetailForm form = new TodoDetailForm();
-	    form.setUserid("guest");
+	    form.setUsername("guest");
 	    form.setTitle("");
 
 	    mockMvc.perform(post("/addTodo").flashAttr("todoDetailForm", form))
@@ -153,7 +153,7 @@ public class TodoWebAppControllerTesst {
 	@WithUserDetails("guest")
     public void postModTodoTest() throws Exception {
 		TodoDetailForm form = new TodoDetailForm();
-	    form.setUserid("guest");
+	    form.setUsername("guest");
 	    form.setTitle("111111");
 
 		mockMvc.perform(post("/modTodo").flashAttr("todoDetailForm", form))
@@ -166,7 +166,7 @@ public class TodoWebAppControllerTesst {
 	@WithUserDetails("guest")
     public void getDeleteTodoTest() throws Exception {
 		TodoDetailForm form = new TodoDetailForm();
-	    form.setUserid("guest");
+	    form.setUsername("guest");
 	    form.setTitle("111111");
 
 		mockMvc.perform(get("/deleteTodo").flashAttr("todoDetailForm", form))

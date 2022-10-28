@@ -7,28 +7,28 @@ import javax.validation.constraints.Size;
 public class SignupForm {
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9]+$")
-    @Size(min = 1, max = 20, message = "ユーザIDは1文字以上20文字以内でお願いします。")
-    private String userid;
+    @Size(min = 1, max = 20, message = "ユーザnameは1文字以上20文字以内でお願いします。")
+    private String username;
 
     @NotBlank
-    @Size(min = 1, max = 20, message = "ユーザ名は1文字以上20文字以内でお願いします。")
-    private String username;
+    @Size(min = 1, max = 20, message = "日本語名は1文字以上20文字以内でお願いします。")
+    private String usernamejp;
 
     @NotBlank
     @Size(min = 5, max = 20, message = "パスワードは5文字以上20文字以内でお願いします。")
     private String password;
 
-    public String getUserid() {
-        return userid;
-    }
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
     public String getUsername() {
         return username;
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+    public String getUsernamejp() {
+        return usernamejp;
+    }
+    public void setUsernamejp(String usernamejp) {
+        this.usernamejp = usernamejp;
     }
     public String getPassword() {
         return password;

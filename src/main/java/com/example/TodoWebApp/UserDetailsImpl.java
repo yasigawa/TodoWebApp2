@@ -7,14 +7,14 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
-    private String userid;
     private String username;
+    private String usernamejp;
     private String password;
     private Collection<GrantedAuthority> authorities;
 
-    public UserDetailsImpl(String userid, String username, String password, Collection<GrantedAuthority> authorities) {
-        this.userid = userid;
+    public UserDetailsImpl(String username, String usernamejp, String password, Collection<GrantedAuthority> authorities) {
         this.username = username;
+        this.usernamejp = usernamejp;
         this.password = password;
         this.authorities = authorities;
     }
@@ -27,9 +27,8 @@ public class UserDetailsImpl implements UserDetails {
     public String getPassword() {
         return password;
     }
-    @Override
-    public String getUsername() {
-        return username;
+    public String getUsernamejp() {
+        return usernamejp;
     }
     @Override
     public boolean isAccountNonExpired() {
@@ -47,8 +46,8 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-	public String getUserid() {
-		return userid;
+    @Override
+	public String getUsername() {
+		return username;
 	}
 }
