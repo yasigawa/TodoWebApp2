@@ -21,16 +21,16 @@
         		</div>
 		        <div class="row text-left">
 					<div class="col text-left">
-		        		<h4><label class=" text-left" for="userid">ID</label></h4>
+		        		<h4><label class=" text-left" for="username">ID</label></h4>
 	    			</div>
 	    		</div>
 		        <div class="row">
 					<div class="col">
-		        		<input type="text" id="userid" name="userid" 
-		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${signupForm.userid}">
+		        		<input type="text" id="username" name="username" 
+		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${signupForm.username}">
 	    			</div>
 	    		</div>
-        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('userid')}" th:errors="${signupForm.userid}"></div>
+        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="${signupForm.username}"></div>
 
 		        <div class="row text-left">
 					<div class="col text-left">
@@ -47,16 +47,16 @@
 
 		        <div class="row text-left">
 					<div class="col text-left">
-		        		<h4><label class=" text-left" for="username">ユーザー名</label></h4>
+		        		<h4><label class=" text-left" for="usernamejp">ユーザー名</label></h4>
 	    			</div>
 	    		</div>
 		        <div class="row">
 					<div class="col">
-		        		<input type="text" id="username" name="username" 
-		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${signupForm.username}">
+		        		<input type="text" id="usernamejp" name="usernamejp" 
+		        			class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" th:value="${signupForm.usernamejp}">
 	    			</div>
 	    		</div>
-        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="${signupForm.username}"></div>
+        		<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('usernamejp')}" th:errors="${signupForm.usernamejp}"></div>
 
 		        <div class="row mt-3">
     		        <div class="col">

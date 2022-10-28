@@ -5,17 +5,17 @@ public class TodoDetailsImpl implements TodDetails {
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
-	private String userid;
+	private String username;
 	private String title;
 	private String details;
     private String tododate;
     private String todotime;
     private String done;
 
-    public TodoDetailsImpl(String id, String userid, String title, String details,
+    public TodoDetailsImpl(String id, String username, String title, String details,
     		String tododate, String todotime, String done) {
         this.id = id;
-        this.userid = userid;
+        this.username = username;
         this.title = title;
         this.details = details;
         this.tododate = tododate;
@@ -29,8 +29,8 @@ public class TodoDetailsImpl implements TodDetails {
 	}
 
 	@Override
-	public String getUserid() {
-		return userid;
+	public String getUsername() {
+		return username;
 	}
 
 	@Override

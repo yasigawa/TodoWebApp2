@@ -32,10 +32,10 @@ public class TodoWebAppController {
     @GetMapping
     public String index(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         
-        String userid = getUserid();
+        String username = getUsername();
         
         // タスク一覧を取得する
-        List<TodDetails> todolist = todoDetailsServiceImpl.select(userid);
+        List<TodDetails> todolist = todoDetailsServiceImpl.select(username);
         model.addAttribute("todolist", todolist);
         System.out.println("index:" + model.toString());  // 
         return "index";
@@ -59,13 +59,13 @@ public class TodoWebAppController {
             return "signup";
         }
 
-        if (userDetailsServiceImpl.isExistUser(signupForm.getUserid())) {
-            model.addAttribute("signupError", "ユーザーID " + signupForm.getUserid() + "は既に登録されています");
+        if (userDetailsServiceImpl.isExistUser(signupForm.getUsername())) {
+            model.addAttribute("signupError", "ユーザーID " + signupForm.getUsername() + "は既に登録されています");
             return "signup";
         }
 
         try {
-            userDetailsServiceImpl.register(signupForm.getUserid(), signupForm.getUsername(), signupForm.getPassword(), "ROLE_USER");
+            userDetailsServiceImpl.register(signupForm.getUsername(), signupForm.getUsernamejp(), signupForm.getPassword(), "ROLE_USER");
         } catch (DataAccessException e) {
             model.addAttribute("signupError", "ユーザー登録に失敗しました");
             return "signup";
@@ -79,7 +79,7 @@ public class TodoWebAppController {
 		}
 
         try {
-            request.login(signupForm.getUserid(), signupForm.getPassword());
+            request.login(signupForm.getUsername(), signupForm.getPassword());
         } catch (ServletException e) {
             e.printStackTrace();
         }
@@ -89,13 +89,13 @@ public class TodoWebAppController {
 
     @GetMapping("/addTodo")
     public String addTodo (Model model, TodoDetailForm todoDetailForm, boolean hasErr) {
-    	String userid = getUserid();
-    	TodDetails tododetail = new TodoDetailsImpl("", userid, "", "", "", "", "");
+    	String username = getUsername();
+    	TodDetails tododetail = new TodoDetailsImpl("", username, "", "", "", "", "");
     	if (hasErr) {
     		// 入力エラー時
     		TodDetails d = new TodoDetailsImpl(
     	    		todoDetailForm.getId(),
-    	    		userid,
+    	    		username,
     	    		todoDetailForm.getTitle(),
     	    		todoDetailForm.getDetails(),
     	    		todoDetailForm.getTododate(),
@@ -113,7 +113,7 @@ public class TodoWebAppController {
     public String addTodo(@Validated TodoDetailForm todoDetailForm, BindingResult result, Model model,
             HttpServletRequest request) {
 
-    	String userid = getUserid();
+    	String username = getUsername();
     	// バリデーションエラー
         if (result.hasErrors()) {
             return addTodo(model, todoDetailForm, true);
@@ -121,7 +121,7 @@ public class TodoWebAppController {
         
         try {
         	todoDetailsServiceImpl.insert(
-        			userid,
+        			username,
     	    		todoDetailForm.getTitle(),
     	    		todoDetailForm.getDetails(),
     	    		todoDetailForm.getTododate(),
@@ -133,7 +133,7 @@ public class TodoWebAppController {
         }
         
         // タスク一覧を取得する
-        List<TodDetails> todolist = todoDetailsServiceImpl.select(userid);
+        List<TodDetails> todolist = todoDetailsServiceImpl.select(username);
         model.addAttribute("todolist", todolist);
         model.addAttribute("todoAddModOkMessage", "TODOを追加しました。");
         
@@ -143,7 +143,7 @@ public class TodoWebAppController {
     @GetMapping("/modTodo")
     public String modTodo(String id, Model model, TodoDetailForm todoDetailForm, boolean hasErr) {
 
-    	String userid = getUserid();
+    	String username = getUsername();
 
     	System.out.println("id:" + id);
     	TodDetails tododetail = todoDetailsServiceImpl.selectById(id);
@@ -152,7 +152,7 @@ public class TodoWebAppController {
     		// 入力エラー時
     		TodDetails d = new TodoDetailsImpl(
     	    		todoDetailForm.getId(),
-    	    		userid,
+    	    		username,
     	    		todoDetailForm.getTitle(),
     	    		todoDetailForm.getDetails(),
     	    		todoDetailForm.getTododate(),
@@ -171,7 +171,7 @@ public class TodoWebAppController {
     public String modTodo(@Validated TodoDetailForm todoDetailForm, BindingResult result, Model model,
             HttpServletRequest request) {
 
-    	String userid = getUserid();
+    	String username = getUsername();
 
     	// バリデーションエラー
         if (result.hasErrors()) {
@@ -180,7 +180,7 @@ public class TodoWebAppController {
         try {
         	todoDetailsServiceImpl.update(
     	    		todoDetailForm.getId(),
-    	    		userid,
+    	    		username,
     	    		todoDetailForm.getTitle(),
     	    		todoDetailForm.getDetails(),
     	    		todoDetailForm.getTododate(),
@@ -192,7 +192,7 @@ public class TodoWebAppController {
         }
         
         // タスク一覧を取得する
-        List<TodDetails> todolist = todoDetailsServiceImpl.select(userid);
+        List<TodDetails> todolist = todoDetailsServiceImpl.select(username);
         model.addAttribute("todolist", todolist);
         model.addAttribute("todoAddModOkMessage", "TODOを修正しました。");
         
@@ -201,13 +201,13 @@ public class TodoWebAppController {
     
     @GetMapping("/deleteTodo")
     public String deleteTodo(String id, Model model, TodoDetailForm todoDetailForm, boolean hasErr) {
-    	String userid = getUserid();
+    	String username = getUsername();
 
-    	System.out.println("deleteTodo id:" + id + "userid:" + userid);
-    	todoDetailsServiceImpl.delete(id, userid);
+    	System.out.println("deleteTodo id:" + id + "username:" + username);
+    	todoDetailsServiceImpl.delete(id, username);
 
         // タスク一覧を取得する
-        List<TodDetails> todolist = todoDetailsServiceImpl.select(userid);
+        List<TodDetails> todolist = todoDetailsServiceImpl.select(username);
         model.addAttribute("todolist", todolist);
         model.addAttribute("todoAddModOkMessage", "TODOを削除しました。");
 
@@ -216,12 +216,12 @@ public class TodoWebAppController {
 
     @GetMapping("/toNotDone")
     public String toNotDone(String id, Model model, TodoDetailForm todoDetailForm, boolean hasErr) {
-    	String userid = getUserid();
+    	String username = getUsername();
 
-    	todoDetailsServiceImpl.updateDone(id, userid, "0");
+    	todoDetailsServiceImpl.updateDone(id, username, "0");
 
         // タスク一覧を取得する
-        List<TodDetails> todolist = todoDetailsServiceImpl.select(userid);
+        List<TodDetails> todolist = todoDetailsServiceImpl.select(username);
         model.addAttribute("todolist", todolist);
 
         return "index";
@@ -229,18 +229,18 @@ public class TodoWebAppController {
 
     @GetMapping("/toDone")
     public String toDone(String id, Model model, TodoDetailForm todoDetailForm, boolean hasErr) {
-    	String userid = getUserid();
+    	String username = getUsername();
 
-    	todoDetailsServiceImpl.updateDone(id, userid, "1");
+    	todoDetailsServiceImpl.updateDone(id, username, "1");
 
         // タスク一覧を取得する
-        List<TodDetails> todolist = todoDetailsServiceImpl.select(userid);
+        List<TodDetails> todolist = todoDetailsServiceImpl.select(username);
         model.addAttribute("todolist", todolist);
 
         return "index";
     }
 
-    private String getUserid() {
+    private String getUsername() {
         // SecurityContextHolderからAuthenticationオブジェクトを取得
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
@@ -250,8 +250,8 @@ public class TodoWebAppController {
         System.out.println(authentication.getAuthorities());  // 権限情報を表示
 
         UserDetailsImpl u = (UserDetailsImpl)authentication.getPrincipal();
-        System.out.println("authentication userid:" + u.getUserid());  // 
+        System.out.println("authentication username:" + u.getUsername());  // 
         
-		return u.getUserid();
+		return u.getUsername();
 	}
 }

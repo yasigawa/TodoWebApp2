@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 public class TodoDetailForm {
 
     private String id;
-    private String userid;
+    private String username;
 	
 	@NotBlank
     @Size(min = 1, max = 100, message = "タイトルは1文字以上100文字以内でお願いします。")
@@ -17,11 +17,11 @@ public class TodoDetailForm {
     private String tododate;
     private String todotime;
 
-    public String getUserid() {
-        return userid;
+    public String getUsername() {
+        return username;
     }
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUsername(String username) {
+        this.username = username;
     }
 	public String getId() {
 		return id;
